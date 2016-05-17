@@ -1,5 +1,6 @@
 #Completed
 To review, download the .zip file, open/unzip file, open index.html and notice how all the tests PASS ;)
+Or, for the [Live View](http://trojankai.github.io/frontend-nanodegree-feedreader/#).
 
 
 # Project Overview
