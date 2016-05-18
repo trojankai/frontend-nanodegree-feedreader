@@ -34,7 +34,7 @@ $(function() {
          it('has a URL defined and not empty', function() {
               allFeeds.forEach(function(feed){
               expect(feed.url).toBeDefined();
-              expect(feed.url.length).not.toBe(null);
+              expect(feed.url.length).not.toBe(0);
             });
          });
 
@@ -46,7 +46,7 @@ $(function() {
 
            allFeeds.forEach(function(feed){
             expect(feed.name).toBeDefined();
-            expect(feed.name).toBeTruthy();
+            expect(feed.name).not.toBe('');
            });
          });
     });
@@ -54,8 +54,8 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The Menu', function() {
-      var body = document.body;
-      var menuIcon = document.querySelector('.menu-icon-link');
+      var body = $('body');
+      var menuIcon = $('.menu-icon-link');
 
       it('should be hidden by default', function() {
         // menu-hidden is the class (on the body) that 'hides' the menu, and toggles a transform class with click of the menu-icon-link
@@ -66,7 +66,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-        expect(body.className).toContain('menu-hidden');
+        expect(body.hasClass()).toContain('menu-hidden');
       });
       /* TODO: Write a test that ensures the menu changes
        * visibility when the menu icon is clicked. This test
@@ -76,10 +76,10 @@ $(function() {
        it('should toggle visibility when clicked', function() {
         //menu is hidden by default, so the first click should remove menu hidden class
          menuIcon.click();
-         expect(body.className).not.toContain('menu-hidden');
+         expect(body.hasClass()).not.toContain('menu-hidden');
         //clicking menuIcon again should hide the menu again
          menuIcon.click();
-         expect(body.className).toContain('menu-hidden');
+         expect(body.hasClass()).toContain('menu-hidden');
 
        });
 
@@ -102,9 +102,9 @@ $(function() {
             });
         });
 
-        it('should have at least one entry element', function(done) {
+        it('should have at least one entry element', function() {
         // body...
-            var numEntries = document.querySelector('.feed').getElementsByClassName('entry-link').length;
+            var numEntries = $('entry-link').length;
 
             expect(numEntries).toBeGreaterThan(0);
 
@@ -124,18 +124,16 @@ $(function() {
           //loads the info from index 0
             loadFeed(0, function(){
                 //innerHTML returned from info in index 0
-                initFeed = document.querySelector('.feed').innerText;
+                initFeed = $('.feed').innerText;
                   //loads different info based on index #, this case index 1
-                  loadFeed(1, function(){
-                    done();
-            });
+                  loadFeed(1, done);
 
            });
         });
 
-        it('info loaded by loadFeed function should change', function(done) {
+        it('info loaded by loadFeed function should change', function() {
           //innerHTML from loadFeed index 1
-          var newFeed = document.querySelector('.feed').innerText;
+          var newFeed = $('.feed').innerText;
             console.log(newFeed);
             console.log(initFeed);
           expect(newFeed).not.toBe(initFeed);
